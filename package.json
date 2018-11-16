@@ -1,6 +1,6 @@
 {
   "name": "concat-json-files",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI to group a set of JSON files into a JSON array and write it to a single file.",
   "main": "./cli.js",
   "bin": {

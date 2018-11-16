@@ -19,7 +19,7 @@ program
 	.version(packageInfo.version)
 	.arguments('<sourceFolder> <targetFile>')
 	.action((s, t) => {
-		sourceFolder = path.resolve(s);
+		sourceFolder = s;
 		targetFile = path.resolve(t);
 	})
 	.parse(process.argv);
