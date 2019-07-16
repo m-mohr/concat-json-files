@@ -13,23 +13,28 @@ const showErrorAndExit = err => {
 	process.exit(1);
 };
 
-let sourceFolder, targetFile;
+let source;
 
 program
 	.version(packageInfo.version)
-	.arguments('<sourceFolder> <targetFile>')
-	.action((s, t) => {
-		sourceFolder = s;
-		targetFile = path.resolve(t);
+	.arguments('<source>')
+	.option('-t, --target <target>', 'Target file relative from working directory, defaults to "concat.json"')
+	.action((s) => {
+		source = s;
 	})
 	.parse(process.argv);
 
-mkdirp(path.dirname(targetFile), err => {
+let targetFile = "concat.json";
+if (typeof program.target === 'string') {
+	targetFile = program.target;
+}
+let targetFolder = path.dirname(path.resolve(targetFile));
+mkdirp(targetFolder, err => {
 	if (err) {
 		return showErrorAndExit(err);
 	}
 
-	glob(sourceFolder, {realpath: true}, (err, files) => {
+	glob(source, {realpath: true}, (err, files) => {
 		if (err) {
 			return showErrorAndExit(err);
 		}
